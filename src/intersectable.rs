@@ -12,13 +12,17 @@ pub enum IntersectableType {
 pub struct IntersectionResult {
     pub i_type: IntersectableType,
     pub t: f64,
+    pub intersection_point: Vector3<f64>,
+    pub normal: Vector3<f64>,
 }
 
 impl IntersectionResult {
-    pub fn new(i_type: IntersectableType, t: f64) -> IntersectionResult {
+    pub fn new(i_type: IntersectableType, t: f64, intersection_point: Vector3<f64>, normal: Vector3<f64>) -> IntersectionResult {
         IntersectionResult {
             i_type: i_type,
             t: t,
+            intersection_point: intersection_point,
+            normal: normal,
         }
     }
 }

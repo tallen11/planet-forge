@@ -1,4 +1,4 @@
-type PixelValue = u8;
+pub type PixelValue = u8;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Pixel {

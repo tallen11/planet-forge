@@ -20,15 +20,16 @@ use scene::Scene;
 use renderer::Renderer;
 use intersectable::Intersectable;
 
-const IMAGE_WIDTH: usize = 100;
-const IMAGE_HEIGHT: usize = 100;
+const IMAGE_WIDTH: usize = 200;
+const IMAGE_HEIGHT: usize = 200;
 const SAMPLES_PER_PIXEL: usize = 100;
+const BOUNCES_PER_RAY: usize = 1;
 
 fn main() {
-    let scene_objects: Vec<Box<Intersectable>> = vec![Box::new(Sphere::new(Vector3::new(0.0, 0.0, 2.0), 0.5))];
+    let scene_objects: Vec<Box<Intersectable>> = vec![Box::new(Sphere::new(Vector3::new(0.0, 0.0, 1.0), 0.5))];
     let scene = Scene::new(scene_objects);
 
-    let planet_renderer = Renderer::new(IMAGE_WIDTH, IMAGE_HEIGHT, SAMPLES_PER_PIXEL, 4);
+    let planet_renderer = Renderer::new(IMAGE_WIDTH, IMAGE_HEIGHT, SAMPLES_PER_PIXEL, BOUNCES_PER_RAY);
     let image = planet_renderer.render(&scene);
 
     PNGWriter::write_image_to_file(image, "./output.png");
