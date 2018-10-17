@@ -24,9 +24,13 @@ impl Renderer {
         }
     }
 
+    // TODO: Refactor this to return an ImageSlice and combine all slices together later to
+    // allow for parallelizing the render process...
     pub fn render(&self, scene: &Scene) -> Image {
         let mut image = Image::new(self.image_width, self.image_height);
 
+        // TODO: Change to xoroshiro rng perhaps for greater speed although
+        // I don't know what the rand crate is using under the hood...
         let mut rng = thread_rng();
         let camera = BasicCamera::new();
 
@@ -34,6 +38,7 @@ impl Renderer {
             for col in 0..self.image_width {
                 let mut avg_color = Vector3::new(0.0, 0.0, 0.0);
                 for _ in 0..self.samples_per_pixel {
+                    // TODO: This can be simplified...
                     let p_x = 2.0 * ((col as f64) - (self.image_width as f64 / 2.0) + rng.gen::<f64>()) / self.image_width as f64;
                     let p_y = 2.0 * ((row as f64) - (self.image_height as f64 / 2.0) + rng.gen::<f64>()) / self.image_height as f64;
                     let color = self.render_sample(p_y, p_x, &camera, &scene, self.ray_bounce_count);
