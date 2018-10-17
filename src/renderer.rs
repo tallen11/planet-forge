@@ -4,6 +4,8 @@ use nalgebra::Vector3;
 use image::{Pixel, PixelValue, Image};
 use camera::{Camera, BasicCamera};
 use scene::Scene;
+use intersectable::IntersectableType;
+use ray::Ray;
 
 pub struct Renderer {
     image_width: usize,
@@ -31,9 +33,10 @@ impl Renderer {
         for row in 0..self.image_height {
             for col in 0..self.image_width {
                 let mut avg_color = Vector3::new(0.0, 0.0, 0.0);
-                for s in 0..self.samples_per_pixel {
-                    // do rendering here...
-                    let color = self.render_sample(row, col, &mut rng, &camera, &scene);
+                for _ in 0..self.samples_per_pixel {
+                    let p_x = 2.0 * ((col as f64) - (self.image_width as f64 / 2.0) + rng.gen::<f64>()) / self.image_width as f64;
+                    let p_y = 2.0 * ((row as f64) - (self.image_height as f64 / 2.0) + rng.gen::<f64>()) / self.image_height as f64;
+                    let color = self.render_sample(p_y, p_x, &camera, &scene, self.ray_bounce_count);
                     avg_color += color;
                 }
 
@@ -45,17 +48,28 @@ impl Renderer {
         image
     }
 
-    fn render_sample(&self, row: usize, col: usize, rng: &mut ThreadRng, camera: &Camera, scene: &Scene) -> Vector3<f64> {
-        let mut color = Vector3::new(0.0_f64, 0.0, 0.0);
-        for _ in 0..self.ray_bounce_count {
-            let p_x = 2.0 * ((col as f64) - (self.image_width as f64 / 2.0) + rng.gen::<f64>()) / self.image_width as f64;
-            let p_y = 2.0 * ((row as f64) - (self.image_height as f64 / 2.0) + rng.gen::<f64>()) / self.image_height as f64;
-            let ray = camera.generate_ray(p_x, p_y);
+    fn render_sample(&self, x: f64, y: f64, camera: &Camera, scene: &Scene, max_bounces: usize) -> Vector3<f64> {
+        let mut color = Vector3::new(0.0, 0.0, 0.0);
+        let mut ray = camera.generate_ray(x, y);
+        // let mut coefficient = 1.0_f64;
+        for _ in 0..max_bounces {
             if let Some(result) = scene.find_intersection_in_scene(&ray) {
-                // println!("{:?}", result.normal);
-                color = 0.5 * Vector3::new(result.normal.x + 1.0, result.normal.y + 1.0, result.normal.z + 1.0);
+                match result.i_type {
+                    IntersectableType::Light(emission) => {
+                        let emitted_light = emission * (ray.get_direction().dot(&result.normal)).abs();
+                        color *= emitted_light;
+                        break;
+                    }
+
+                    IntersectableType::Solid => {
+                        color = Vector3::new(1.0, 0.0, 0.0);
+                        // let new_ray_direction = Vector3::new();
+                        // ray = Ray::new(result.intersection_point, );
+                    }
+                }
+                // color = 0.5 * Vector3::new(result.normal.x + 1.0, result.normal.y + 1.0, result.normal.z + 1.0);
             } else {
-                color = Vector3::new(0.0_f64, 0.0, 0.0);
+                break;
             }
         }
 

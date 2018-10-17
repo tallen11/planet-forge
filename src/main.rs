@@ -9,6 +9,7 @@ mod camera;
 mod intersectable;
 mod material;
 mod sphere;
+mod point_light;
 mod renderer;
 mod scene;
 
@@ -16,6 +17,7 @@ use nalgebra::Vector3;
 use image::Image;
 use png_writer::{ImageWriter, PNGWriter};
 use sphere::Sphere;
+use point_light::PointLight;
 use scene::Scene;
 use renderer::Renderer;
 use intersectable::Intersectable;
@@ -23,10 +25,13 @@ use intersectable::Intersectable;
 const IMAGE_WIDTH: usize = 200;
 const IMAGE_HEIGHT: usize = 200;
 const SAMPLES_PER_PIXEL: usize = 100;
-const BOUNCES_PER_RAY: usize = 1;
+const BOUNCES_PER_RAY: usize = 5;
 
 fn main() {
-    let scene_objects: Vec<Box<Intersectable>> = vec![Box::new(Sphere::new(Vector3::new(0.0, 0.0, 1.0), 0.5))];
+    let scene_objects: Vec<Box<Intersectable>> = vec![
+        Box::new(Sphere::new(Vector3::new(0.0, 0.0, 1.0), 0.5)),
+        Box::new(PointLight::new(Vector3::new(0.0, 1.0, 0.5), 0.3)), // light directly overhead???
+    ];
     let scene = Scene::new(scene_objects);
 
     let planet_renderer = Renderer::new(IMAGE_WIDTH, IMAGE_HEIGHT, SAMPLES_PER_PIXEL, BOUNCES_PER_RAY);
