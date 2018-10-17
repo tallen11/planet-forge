@@ -1,0 +1,9 @@
+[package]
+name = "planet-forge"
+version = "0.1.0"
+authors = ["Tate Allen <tatea7@yahoo.com>"]
+
+[dependencies]
+png = "0.13.0"
+nalgebra = "0.16.4"
+rand = "0.5.5"
