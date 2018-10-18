@@ -41,7 +41,7 @@ impl Renderer {
                     // TODO: This can be simplified...
                     let p_x = 2.0 * ((col as f64) - (self.image_width as f64 / 2.0) + rng.gen::<f64>()) / self.image_width as f64;
                     let p_y = 2.0 * ((row as f64) - (self.image_height as f64 / 2.0) + rng.gen::<f64>()) / self.image_height as f64;
-                    let color = self.render_sample(p_y, p_x, &camera, &scene, self.ray_bounce_count);
+                    let color = self.render_sample(p_x, p_y, &camera, &scene, self.ray_bounce_count);
                     avg_color += color;
                 }
 

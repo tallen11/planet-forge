@@ -22,6 +22,6 @@ impl BasicCamera {
 
 impl Camera for BasicCamera {
     fn generate_ray(&self, x: f64, y: f64) -> Ray {
-        Ray::new(self.origin, Vector3::new(x , y, self.near_plane_distance))
+        Ray::new(self.origin, Vector3::new(y, x, self.near_plane_distance))
     }
 }

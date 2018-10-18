@@ -14,7 +14,6 @@ mod renderer;
 mod scene;
 
 use nalgebra::Vector3;
-use image::Image;
 use png_writer::{ImageWriter, PNGWriter};
 use sphere::Sphere;
 use point_light::PointLight;
