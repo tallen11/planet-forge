@@ -2,7 +2,6 @@ use nalgebra::Vector3;
 
 use ray::Ray;
 use intersectable::{IntersectableType, IntersectionResult, Intersectable};
-use material::Material;
 
 pub struct Sphere {
     origin: Vector3<f64>,
@@ -38,11 +37,5 @@ impl Intersectable for Sphere {
         let normal = (intersection_point - self.origin) / self.radius;
 
         Some(IntersectionResult::new(IntersectableType::Solid, t, intersection_point, normal))
-    }
-}
-
-impl Material for Sphere {
-    fn brdf(&self) -> f64 {
-        0.0
     }
 }
