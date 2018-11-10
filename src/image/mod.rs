@@ -1,2 +1,3 @@
-pub type ColorChannelData = u8;
-
+pub mod image;
+pub mod pixel;
+pub mod image_chunk;

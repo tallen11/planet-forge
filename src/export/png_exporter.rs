@@ -1,5 +1,5 @@
 use export::{ Exporter };
-use image::ColorChannelData;
+use image::pixel::ColorChannelData;
 
 use std::path::Path;
 use std::fs::File;
