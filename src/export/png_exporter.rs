@@ -16,7 +16,7 @@ impl Exporter for PNGExporter {
 
         let mut encoder = png::Encoder::new(writer, image_width, image_height);
         encoder.set(png::ColorType::RGB)
-               .set(png::BitDepth::Sixteen);
+               .set(png::BitDepth::Eight);
 
         let mut png_writer = encoder.write_header()?;
         png_writer.write_image_data(&image_data[..])?;
