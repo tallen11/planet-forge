@@ -1,7 +1,1 @@
-pub struct Scene {
-
-}
-
-impl Scene {
-
-}
+pub mod scene;
