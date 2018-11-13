@@ -1,5 +1,4 @@
 use renderer::integrator::{Integrator, Radiosity};
-use image::image_chunk::ImageChunk;
 use renderer::scene::scene::Scene;
 
 use renderer::ray::Ray;

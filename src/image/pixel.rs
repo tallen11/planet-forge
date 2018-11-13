@@ -24,15 +24,15 @@ impl Pixel {
         }
     }
 
-    pub fn get_red(&self) -> ColorChannelData {
+    pub fn red(&self) -> ColorChannelData {
         self.red
     }
 
-    pub fn get_green(&self) -> ColorChannelData {
+    pub fn green(&self) -> ColorChannelData {
         self.green
     }
 
-    pub fn get_blue(&self) -> ColorChannelData {
+    pub fn blue(&self) -> ColorChannelData {
         self.blue
     }
 }
