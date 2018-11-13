@@ -22,15 +22,15 @@ impl Vec3 {
         }
     }
 
-    pub fn get_x(&self) -> f32 {
+    pub fn x(&self) -> f32 {
         self.x
     }
 
-    pub fn get_y(&self) -> f32 {
+    pub fn y(&self) -> f32 {
         self.y
     }
 
-    pub fn get_z(&self) -> f32 {
+    pub fn z(&self) -> f32 {
         self.z
     }
 

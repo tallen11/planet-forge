@@ -17,7 +17,7 @@ fn main() {
     let image_width = 300;
     let image_height = 200;
 
-    let renderer = Renderer::new(Box::new(PathTracerIntegrator::new(10, 5)));
+    let renderer = Renderer::new(image_width, image_height, Box::new(PathTracerIntegrator::new(10, 5)));
 
     let image = Image::new(image_width, image_height);
 

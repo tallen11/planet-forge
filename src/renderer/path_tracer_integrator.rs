@@ -1,6 +1,5 @@
 use renderer::integrator::{Integrator, Radiosity};
 use renderer::scene::scene::Scene;
-
 use renderer::ray::Ray;
 
 pub struct PathTracerIntegrator {
@@ -18,7 +17,7 @@ impl PathTracerIntegrator {
 }
 
 impl Integrator for PathTracerIntegrator {
-    fn compute_radiosity(&self, screen_location_x: f32, screen_location_y: f32) -> Radiosity {
+    fn compute_radiosity(&self, ray: Ray) -> Radiosity {
         Radiosity::new(0.0, 0.0, 0.0)
     }
 }

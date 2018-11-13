@@ -1,4 +1,5 @@
 use renderer::scene::scene::Scene;
+use renderer::ray::Ray;
 
 pub type RadiosityChannel = f32;
 
@@ -32,5 +33,5 @@ impl Radiosity {
 
 pub trait Integrator {
     // Keep notion of images separate from integrator...
-    fn compute_radiosity(&self, screen_location_x: f32, screen_location_y: f32) -> Radiosity;
+    fn compute_radiosity(&self, ray: Ray) -> Radiosity;
 }

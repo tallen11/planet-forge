@@ -1,6 +1,7 @@
 use renderer::primitive::point::Point;
 use renderer::primitive::vec3::Vec3;
 
+#[derive(Copy, Clone)]
 pub struct Ray {
     origin: Point,
     direction: Vec3,
