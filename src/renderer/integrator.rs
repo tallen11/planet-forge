@@ -1,5 +1,5 @@
 use image::image_chunk::ImageChunk;
-use scene::scene::Scene;
+use renderer::scene::scene::Scene;
 
 pub type RadiosityChannel = f32;
 

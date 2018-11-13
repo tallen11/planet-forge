@@ -15,7 +15,7 @@ impl ImageChunk {
             col: col,
             width: width,
             height: height,
-            pixels: vec![Pixel::black(); (width*height) as usize],
+            pixels: vec![Pixel::new(255,0,0); (width*height) as usize],
         }
     }
 

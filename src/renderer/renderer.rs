@@ -1,11 +1,11 @@
 use renderer::integrator::Integrator;
 
-pub struct Renderer<'integrator> {
-    integrator: &'integrator Integrator,
+pub struct Renderer {
+    integrator: Box<Integrator>,
 }
 
-impl<'integrator> Renderer<'integrator> {
-    pub fn new(integrator: &'integrator Integrator) -> Renderer<'integrator> {
+impl Renderer {
+    pub fn new(integrator: Box<Integrator>) -> Renderer {
         Renderer {
             integrator: integrator,
         }

@@ -4,7 +4,6 @@ extern crate nalgebra;
 mod export;
 mod image;
 mod renderer;
-mod scene;
 
 use export::{ Exporter };
 use export::png_exporter::PNGExporter;
@@ -16,12 +15,10 @@ use renderer::renderer::Renderer;
 use renderer::path_tracer_integrator::PathTracerIntegrator;
 
 fn main() {
-
     let image_width = 300;
     let image_height = 200;
 
-    let integrator = PathTracerIntegrator::new(10, 5);
-    let renderer = Renderer::new(&integrator);
+    let renderer = Renderer::new(Box::new(PathTracerIntegrator::new(10, 5)));
 
     let chunks = Image::chunkify(image_width, image_height, image_width, image_height);
     let image = Image::new(image_width, image_height, chunks);

@@ -1,6 +1,6 @@
 use renderer::integrator::{Integrator, Radiosity};
 use image::image_chunk::ImageChunk;
-use scene::scene::Scene;
+use renderer::scene::scene::Scene;
 
 use renderer::ray::Ray;
 
@@ -20,7 +20,6 @@ impl PathTracerIntegrator {
 
 impl Integrator for PathTracerIntegrator {
     fn compute_radiosity(&self, screen_location_x: f32, screen_location_y: f32) -> Radiosity {
-        
         Radiosity::new(0.0, 0.0, 0.0)
     }
 }
