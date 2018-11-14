@@ -35,6 +35,10 @@ impl Point {
     pub fn z(&self) -> f32 {
         self.z
     }
+
+    pub fn to_vec3(self) -> Vec3 {
+        Vec3::new(self.x, self.y, self.z)
+    }
 }
 
 impl std::ops::Add<Point> for Point {
@@ -50,5 +54,13 @@ impl std::ops::Add<Vec3> for Point {
 
     fn add(self, _rhs: Vec3) -> Vec3 {
         Vec3::new(self.x + _rhs.x(), self.y + _rhs.y(), self.z + _rhs.z())
+    }
+}
+
+impl std::ops::Sub<Point> for Point {
+    type Output = Vec3;
+
+    fn sub(self, _rhs: Point) -> Vec3 {
+        Vec3::new(self.x - _rhs.x(), self.y - _rhs.y(), self.z - _rhs.z())
     }
 }

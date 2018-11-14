@@ -1,3 +1,5 @@
+use renderer::primitive::point::Point;
+
 #[derive(Copy, Clone, Debug)]
 pub struct Vec3 {
     x: f32,
@@ -34,6 +36,10 @@ impl Vec3 {
         self.z
     }
 
+    pub fn dot(&self, v2: Vec3) -> f32 {
+        self.x*v2.x() + self.y*v2.y() + self.z*v2.z()
+    }
+
     pub fn get_length(&self) -> f32 {
         (self.x*self.x + self.y*self.y + self.z*self.z).sqrt()
     }
@@ -41,6 +47,26 @@ impl Vec3 {
     pub fn normalized(&self) -> Vec3 {
         let length = self.get_length();
         Vec3::new(self.x / length, self.y / length, self.z / length)
+    }
+
+    pub fn to_point(self) -> Point {
+        Point::new(self.x, self.y, self.z)
+    }
+}
+
+impl std::ops::Sub<Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn sub(self, _rhs: Vec3) -> Vec3 {
+        Vec3::new(self.x - _rhs.x(), self.y - _rhs.y(), self.z - _rhs.z())
+    }
+}
+
+impl std::ops::Sub<Point> for Vec3 {
+    type Output = Vec3;
+
+    fn sub(self, _rhs: Point) -> Vec3 {
+        Vec3::new(self.x - _rhs.x(), self.y - _rhs.y(), self.z - _rhs.z())
     }
 }
 

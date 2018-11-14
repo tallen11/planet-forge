@@ -23,6 +23,7 @@ impl Ray {
         self.direction
     }
 
+    // TODO: This should probably just return a Point...
     pub fn p(&self, t: f32) -> Vec3 {
         self.origin + self.direction * t
     }
