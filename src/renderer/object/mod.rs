@@ -5,6 +5,7 @@ use renderer::primitive::point::Point;
 use renderer::primitive::vec3::Vec3;
 use renderer::ray::Ray;
 
+#[derive(Copy, Clone, Debug)]
 pub struct IntersectionResult {
     t: f32,
     intersection_point: Point,
