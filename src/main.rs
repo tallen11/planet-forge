@@ -1,6 +1,7 @@
 extern crate png;
 extern crate nalgebra;
 
+mod xoroshiro_rng;
 mod export;
 mod image;
 mod renderer;
