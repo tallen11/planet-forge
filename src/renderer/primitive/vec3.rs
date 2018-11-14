@@ -40,17 +40,25 @@ impl Vec3 {
         self.x*v2.x() + self.y*v2.y() + self.z*v2.z()
     }
 
-    pub fn get_length(&self) -> f32 {
+    pub fn length(&self) -> f32 {
         (self.x*self.x + self.y*self.y + self.z*self.z).sqrt()
     }
 
     pub fn normalized(&self) -> Vec3 {
-        let length = self.get_length();
+        let length = self.length();
         Vec3::new(self.x / length, self.y / length, self.z / length)
     }
 
     pub fn to_point(self) -> Point {
         Point::new(self.x, self.y, self.z)
+    }
+}
+
+impl std::ops::Add<Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn add(self, _rhs: Vec3) -> Vec3 {
+        Vec3::new(self.x + _rhs.x(), self.y + _rhs.y(), self.z + _rhs.z())
     }
 }
 
@@ -75,5 +83,13 @@ impl std::ops::Mul<f32> for Vec3 {
 
     fn mul(self, _rhs: f32) -> Vec3 {
         Vec3::new(self.x * _rhs, self.y * _rhs, self.z * _rhs)
+    }
+}
+
+impl std::ops::Mul<Vec3> for f32 {
+    type Output = Vec3;
+
+    fn mul(self, _rhs: Vec3) -> Vec3 {
+        Vec3::new(self * _rhs.x(), self * _rhs.y(), self * _rhs.z())
     }
 }

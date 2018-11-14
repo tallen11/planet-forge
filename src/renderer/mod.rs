@@ -5,5 +5,5 @@ pub mod camera;
 pub mod scene;
 pub mod object;
 
-mod primitive;
+pub mod primitive;
 mod ray;

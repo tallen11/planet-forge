@@ -1,37 +1,36 @@
 use renderer::scene::scene::Scene;
 use renderer::ray::Ray;
 
-pub type RadiosityChannel = f32;
+pub type RadianceChannel = f32;
 
-pub struct Radiosity {
-    red: RadiosityChannel,
-    green: RadiosityChannel,
-    blue: RadiosityChannel,
+pub struct Radiance {
+    red: RadianceChannel,
+    green: RadianceChannel,
+    blue: RadianceChannel,
 }
 
-impl Radiosity {
-    pub fn new(red: RadiosityChannel, green: RadiosityChannel, blue: RadiosityChannel) -> Radiosity {
-        Radiosity {
+impl Radiance {
+    pub fn new(red: RadianceChannel, green: RadianceChannel, blue: RadianceChannel) -> Radiance {
+        Radiance {
             red: red,
             green: green,
             blue: blue,
         }
     }
 
-    pub fn get_red(&self) -> RadiosityChannel {
+    pub fn get_red(&self) -> RadianceChannel {
         self.red
     }
 
-    pub fn get_green(&self) -> RadiosityChannel {
+    pub fn get_green(&self) -> RadianceChannel {
         self.green
     }
 
-    pub fn get_blue(&self) -> RadiosityChannel {
+    pub fn get_blue(&self) -> RadianceChannel {
         self.blue
     }
 }
 
 pub trait Integrator {
-    // Keep notion of images separate from integrator...
-    fn compute_radiosity(&self, ray: Ray) -> Radiosity;
+    fn compute_radiance(&self, ray: Ray, scene: &Scene) -> Radiance;
 }
