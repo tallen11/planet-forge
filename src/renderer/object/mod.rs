@@ -37,3 +37,30 @@ impl IntersectionResult {
 pub trait Intersectable {
     fn detect_intersection(&self, ray: Ray) -> Option<IntersectionResult>;
 }
+
+pub trait SphericalIntersectable {
+    fn detect_spherical_intersection(&self, ray: Ray, origin: Point, radius: f32) -> Option<IntersectionResult> {
+        let oc = ray.get_origin() - origin;
+
+        let a = ray.get_direction().dot(ray.get_direction());
+        let b = oc.dot(ray.get_direction());
+        let c = oc.dot(oc) - radius*radius;
+
+        let discriminant = b*b - a*c;
+        if discriminant > 0.0 {
+            let t1 = (-b - discriminant.sqrt()) / a;
+            let t2 = (-b + discriminant.sqrt()) / a;
+            if t1 < t2 {
+                let ip = ray.p(t1);
+                let norm = (ip - origin).normalized();
+                return Some(IntersectionResult::new(t1, ip.to_point(), norm));
+            } else {
+                let ip = ray.p(t2);
+                let norm = (ip - origin).normalized();
+                return Some(IntersectionResult::new(t1, ip.to_point(), norm));
+            }
+        }
+
+        None
+    }
+}
