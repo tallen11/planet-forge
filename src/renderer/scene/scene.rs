@@ -1,13 +1,19 @@
+use std::collections::HashMap;
+
 use renderer::object::{IntersectionResult, Intersectable};
+use renderer::object::light::Light;
 use renderer::ray::Ray;
+use renderer::material::material::Material;
 
 pub struct Scene {
+    object_id_counter: u32,
     objects: Vec<Box<Intersectable>>,
 }
 
-impl Scene {
+impl<'a> Scene {
     pub fn new() -> Scene {
         Scene {
+            object_id_counter: 0,
             objects: Vec::new(),
         }
     }
