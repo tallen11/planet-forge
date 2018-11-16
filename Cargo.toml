@@ -5,5 +5,5 @@ authors = ["Tate Allen"]
 
 [dependencies]
 png = "0.13.0"
-nalgebra = "0.16.4"
+# nalgebra = "0.16.4"
 rand = "0.5.5"

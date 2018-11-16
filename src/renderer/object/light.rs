@@ -1,4 +1,4 @@
-use renderer::object::{IntersectionResult, Intersectable};
+use renderer::object::{IntersectionResult, Intersectable, ObjectType};
 use renderer::primitive::point::Point;
 use renderer::ray::Ray;
 use renderer::material::material::Material;
@@ -28,21 +28,26 @@ impl Intersectable for Light {
         let c = oc.dot(oc) - self.radius*self.radius;
 
         let discriminant = b*b - a*c;
+        // println!("{}", discriminant);
         if discriminant > 0.0 {
             let t1 = (-b - discriminant.sqrt()) / a;
             let t2 = (-b + discriminant.sqrt()) / a;
-            if t1 < t2 {
+            if t1 >= 0.0 && t1 < t2 {
                 let ip = ray.p(t1);
                 let norm = (ip - self.origin).normalized();
                 return Some(IntersectionResult::new(t1, ip.to_point(), norm, self));
-            } else {
+            } else if t2 >= 0.0 {
                 let ip = ray.p(t2);
                 let norm = (ip - self.origin).normalized();
-                return Some(IntersectionResult::new(t1, ip.to_point(), norm, self));
+                return Some(IntersectionResult::new(t2, ip.to_point(), norm, self));
             }
         }
 
         None
+    }
+
+    fn get_type(&self) -> ObjectType {
+        ObjectType::Light(self.emission)
     }
 
     fn get_material(&self) -> Option<&Box<Material>> {

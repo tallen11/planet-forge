@@ -1,10 +1,11 @@
 extern crate png;
-extern crate nalgebra;
+// extern crate nalgebra;
 
 mod util;
 mod export;
 mod image;
 mod renderer;
+mod term;
 
 use export::{ Exporter };
 use export::png_exporter::PNGExporter;
@@ -22,16 +23,21 @@ use renderer::object::light::Light;
 use renderer::material::material::LambertianMaterial;
 
 fn main() {
-    let image_width = 300;
-    let image_height = 200;
+    let image_width = 1500;
+    let image_height = 750;
+    let samples_per_pixel = 2000;
+    let max_bounces_per_ray = 50;
 
     let camera = PinholeCamera::new();
     
     let mut scene = Scene::new();
-    scene.add_object(Box::new(Sphere::new(Point::new(0.0, 0.0, 1.0), 0.5, Box::new(LambertianMaterial::new(Vec3::new(1.0, 0.0, 0.0))))));
-    scene.add_object(Box::new(Light::new(Point::new(-1.0, 1.0, -1.0), 1.0)));
+    scene.add_object(Box::new(Sphere::new(Point::new(0.0, -0.1, 1.0), 0.2, Box::new(LambertianMaterial::new(Vec3::new(0.0, 0.3, 0.8))))));
+    scene.add_object(Box::new(Sphere::new(Point::new(0.0, -100.3, 1.0), 100.0, Box::new(LambertianMaterial::new(Vec3::new(1.0, 1.0, 1.0))))));
+    // scene.add_object(Box::new(Light::new(Point::new(0.5, 0.0, 1.0), 0.2)));
+    scene.add_object(Box::new(Light::new(Point::new(-2.5, 0.0, 1.0), 1.0)));
+    // scene.add_object(Box::new(Light::new(Point::new(15.0, 0.0, -20.0), 13.0)));
 
-    let renderer = Renderer::new(image_width, image_height, 10, Box::new(PathTracerIntegrator::new(5)));
+    let renderer = Renderer::new(image_width, image_height, samples_per_pixel, Box::new(PathTracerIntegrator::new(max_bounces_per_ray)));
     
     let image = renderer.render(&camera, &scene);
 

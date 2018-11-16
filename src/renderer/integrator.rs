@@ -1,8 +1,10 @@
 use renderer::scene::scene::Scene;
 use renderer::ray::Ray;
+use util::xoroshiro_rng::XoroshiroRNG;
 
 pub type RadianceChannel = f32;
 
+#[derive(Copy, Clone, Debug)]
 pub struct Radiance {
     red: RadianceChannel,
     green: RadianceChannel,
@@ -18,19 +20,43 @@ impl Radiance {
         }
     }
 
-    pub fn get_red(&self) -> RadianceChannel {
+    pub fn red(&self) -> RadianceChannel {
         self.red
     }
 
-    pub fn get_green(&self) -> RadianceChannel {
+    pub fn green(&self) -> RadianceChannel {
         self.green
     }
 
-    pub fn get_blue(&self) -> RadianceChannel {
+    pub fn blue(&self) -> RadianceChannel {
         self.blue
     }
 }
 
+impl std::ops::Add<Radiance> for Radiance {
+    type Output = Radiance;
+
+    fn add(self, _rhs: Radiance) -> Radiance {
+        Radiance {
+            red: self.red + _rhs.red(),
+            green: self.green + _rhs.green(),
+            blue: self.blue + _rhs.blue(),
+        }
+    }
+}
+
+impl std::ops::Div<f32> for Radiance {
+    type Output = Radiance;
+
+    fn div(self, _rhs: f32) -> Radiance {
+        Radiance {
+            red: self.red / _rhs,
+            green: self.green / _rhs,
+            blue: self.blue / _rhs,
+        }
+    }
+}
+
 pub trait Integrator {
-    fn compute_radiance(&self, ray: Ray, scene: &Scene) -> Radiance;
+    fn compute_radiance(&self, ray: Ray, scene: &Scene, rng: &mut XoroshiroRNG) -> Radiance;
 }

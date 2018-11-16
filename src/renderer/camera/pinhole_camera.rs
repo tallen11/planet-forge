@@ -12,8 +12,9 @@ pub struct PinholeCamera {
 
 impl PinholeCamera {
     pub fn new() -> PinholeCamera {
+        let focal_length = 2.0 / (std::f32::consts::PI / 2.0).atan();
         PinholeCamera {
-            lower_left_corner: Vec3::new(-2.0, -1.0, 1.0),
+            lower_left_corner: Vec3::new(-2.0, -1.0, focal_length),
             horizontal: Vec3::new(4.0, 0.0, 0.0),
             vertical: Vec3::new(0.0, 2.0, 0.0),
             origin: Point::zero(),

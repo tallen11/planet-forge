@@ -7,6 +7,12 @@ use renderer::ray::Ray;
 use renderer::material::material::Material;
 
 #[derive(Copy, Clone)]
+pub enum ObjectType<'a> {
+    Solid(&'a Box<Material>),
+    Light(f32),
+}
+
+#[derive(Copy, Clone)]
 pub struct IntersectionResult<'a> {
     t: f32,
     intersection_point: Point,
@@ -43,6 +49,7 @@ impl<'a> IntersectionResult<'a> {
 
 pub trait Intersectable {
     fn detect_intersection(&self, ray: Ray) -> Option<IntersectionResult>;
+    fn get_type(&self) -> ObjectType;
     fn get_material(&self) -> Option<&Box<Material>>;
 }
 
