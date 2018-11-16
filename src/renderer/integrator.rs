@@ -1,6 +1,7 @@
 use renderer::scene::scene::Scene;
 use renderer::ray::Ray;
 use util::xoroshiro_rng::XoroshiroRNG;
+use renderer::path_tracer_integrator::PathTracerIntegrator;
 
 pub type RadianceChannel = f32;
 
@@ -53,6 +54,19 @@ impl std::ops::Div<f32> for Radiance {
             red: self.red / _rhs,
             green: self.green / _rhs,
             blue: self.blue / _rhs,
+        }
+    }
+}
+
+pub enum IntegratorType {
+    PathTracer(u32),
+}
+
+impl IntegratorType {
+    pub fn instantiate(&self) -> Box<Integrator> {
+        match *self {
+            IntegratorType::PathTracer(max_ray_bounces) => Box::new(PathTracerIntegrator::new(max_ray_bounces)),
+            _ => unreachable!(),
         }
     }
 }

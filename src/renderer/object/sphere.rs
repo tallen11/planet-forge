@@ -48,8 +48,4 @@ impl Intersectable for Sphere {
     fn get_type(&self) -> ObjectType {
         ObjectType::Solid(&self.material)
     }
-
-    fn get_material(&self) -> Option<&Box<Material>> {
-        Some(&self.material)
-    }
 }

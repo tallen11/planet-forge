@@ -4,7 +4,7 @@ use renderer::primitive::vec3::Vec3;
 use renderer::primitive::point::Point;
 use renderer::ray::Ray;
 
-pub trait Camera {
+pub trait Camera : Send + Sync {
     fn set_origin(&mut self, origin: Point);
     fn generate_ray(&self, u: f32, v: f32) -> Ray;
 }

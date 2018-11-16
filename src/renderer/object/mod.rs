@@ -50,7 +50,6 @@ impl<'a> IntersectionResult<'a> {
 pub trait Intersectable {
     fn detect_intersection(&self, ray: Ray) -> Option<IntersectionResult>;
     fn get_type(&self) -> ObjectType;
-    fn get_material(&self) -> Option<&Box<Material>>;
 }
 
 // pub trait SphericalIntersectable {

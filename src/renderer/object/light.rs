@@ -49,8 +49,4 @@ impl Intersectable for Light {
     fn get_type(&self) -> ObjectType {
         ObjectType::Light(self.emission)
     }
-
-    fn get_material(&self) -> Option<&Box<Material>> {
-        None
-    }
 }

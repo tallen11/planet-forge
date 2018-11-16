@@ -3,6 +3,7 @@ use renderer::ray::Ray;
 use renderer::primitive::vec3::Vec3;
 use renderer::primitive::point::Point;
 
+#[derive(Copy, Clone)]
 pub struct PinholeCamera {
     lower_left_corner: Vec3,
     horizontal: Vec3,
